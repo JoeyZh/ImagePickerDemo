@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">ImagePicker</string>
+    <string name="long_clicked_delete">提示：长按可删除图片</string>
+</resources>

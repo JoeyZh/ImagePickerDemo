@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffff"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="5dp">
+
+        <TextView
+            android:id="@+id/tv_image_name"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="left|center_vertical"
+            android:padding="5dp"
+            android:text="附件：" />
+
+        <TextView
+            android:id="@+id/tv_submit_image_count"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:gravity="left|center_vertical"
+            android:text="" />
+
+        <ImageButton
+            android:id="@+id/btn_show_image"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@android:color/transparent"
+            android:padding="10dp"
+            android:src="@drawable/ic_drop_down" />
+    </LinearLayout>
+
+    <!--   <include layout="@laypm_divider_horizontalntal" />
+   -->
+    <LinearLayout
+        android:id="@+id/layout_images"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.joey.ui.view.ExpandGridView
+            android:id="@+id/gv_submit_images"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffff"
+            android:horizontalSpacing="2dp"
+            android:numColumns="3"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:verticalSpacing="2dp" />
+
+        <TextView
+            android:id="@+id/tv_delete_notice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/long_clicked_delete" />
+    </LinearLayout>
+</LinearLayout>
