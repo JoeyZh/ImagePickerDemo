@@ -60,7 +60,7 @@ public class AddImageAdapter extends BaseAdapter {
             ImageShapeUtil.setImage(holder.img,path);
 
         }
-        holder.img.setTag(path);
+//        holder.img.setTag(path);
         return convertView;
     }
 

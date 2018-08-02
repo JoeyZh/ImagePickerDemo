@@ -223,7 +223,7 @@ public class SelectPictureActivity extends BaseActivity {
         File mediaFile = new File(mediaStorageDir.getPath() + File.separator + "IMG_" + timeStamp + ".jpg");
         cameraPath = mediaFile.getAbsolutePath();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            return FileProvider.getUriForFile(context.getApplicationContext(), "com.alp.pmcloud.fileProvider", mediaFile);
+            return FileProvider.getUriForFile(context.getApplicationContext(), getApplicationContext().getPackageName() + ".fileProvider", mediaFile);
         }
         return Uri.fromFile(mediaFile);
     }
@@ -336,8 +336,8 @@ public class SelectPictureActivity extends BaseActivity {
             if (convertView == null) {
                 convertView = View.inflate(context, R.layout.pictools_grid_item_picture, null);
                 holder = new ViewHolder();
-                holder.iv = (ImageView) convertView.findViewById(R.id.iv);
-                holder.checkBox = (Button) convertView.findViewById(R.id.check);
+                holder.iv = convertView.findViewById(R.id.iv);
+                holder.checkBox = convertView.findViewById(R.id.check);
                 convertView.setTag(holder);
             } else {
                 holder = (ViewHolder) convertView.getTag();
@@ -356,6 +356,7 @@ public class SelectPictureActivity extends BaseActivity {
                     public void onClick(View v) {
                         if (!v.isSelected() && selectedPicture.size() + 1 > MAX_NUM) {
                             Toast.makeText(context, "最多选择" + MAX_NUM + "张", Toast.LENGTH_SHORT).show();
+                            v.setSelected(false);
                             return;
                         }
                         if (selectedPicture.contains(item.path)) {
@@ -372,6 +373,8 @@ public class SelectPictureActivity extends BaseActivity {
             }
             return convertView;
         }
+
+
     }
 
     class ViewHolder {

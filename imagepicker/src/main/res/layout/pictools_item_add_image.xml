@@ -7,8 +7,6 @@
 
     <com.joey.ui.view.RatioImageView
         android:id="@+id/img_photo"
-        android:background="#ff0"
-        android:src="@drawable/ic_addpic"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
