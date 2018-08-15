@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +29,7 @@ import java.util.List;
  * Created by Joey on 2017/9/4.
  */
 
-public class ImageSubmitFragment extends Fragment {
+public class ImagePickerFragment extends Fragment {
 
     private ImageButton btnShowImage;
     private View layoutImage;
@@ -38,7 +39,7 @@ public class ImageSubmitFragment extends Fragment {
     private TextView tvImageCount;
     private TextView tvDeleteNotice;
     private boolean editable = true;
-    private TextView tvImageName;
+    private TextView tvPickerTitle;
     private View view;
 
     private ArrayList<String> imgsList = new ArrayList<>();
@@ -46,16 +47,34 @@ public class ImageSubmitFragment extends Fragment {
     protected AlertDialog dlgDelete;
     private String deletePath;
     private boolean changed;
+    private String title;
 
-    public ImageSubmitFragment() {
+    public ImagePickerFragment() {
         setArguments(new Bundle());
     }
 
 
-    public static ImageSubmitFragment newInstance(String[] imgsPath) {
-        ImageSubmitFragment submitFragment = new ImageSubmitFragment();
+    public static ImagePickerFragment newInstance(String[] imgsPath) {
+        ImagePickerFragment submitFragment = new ImagePickerFragment();
         Bundle bundle = new Bundle();
         bundle.putStringArray("images", imgsPath);
+        submitFragment.setArguments(bundle);
+        return submitFragment;
+    }
+
+    public static ImagePickerFragment newInstance(String title,String[] imgsPath) {
+        ImagePickerFragment submitFragment = new ImagePickerFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("title", title);
+        bundle.putStringArray("images", imgsPath);
+        submitFragment.setArguments(bundle);
+        return submitFragment;
+    }
+
+    public static ImagePickerFragment newInstance(String title) {
+        ImagePickerFragment submitFragment = new ImagePickerFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("title", title);
         submitFragment.setArguments(bundle);
         return submitFragment;
     }
@@ -71,7 +90,7 @@ public class ImageSubmitFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         btnShowImage = view.findViewById(R.id.btn_show_image);
-        tvImageName = view.findViewById(R.id.tv_image_name);
+        tvPickerTitle = view.findViewById(R.id.tv_picker_title);
         layoutImage = view.findViewById(R.id.layout_images);
         btnShowImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,6 +151,8 @@ public class ImageSubmitFragment extends Fragment {
         gvImages.setAdapter(addAdapter);
         showImages();
         setEditable(editable);
+        String tmpTitle = getArguments().getString("title");
+        setTitle(tmpTitle);
     }
 
     public void gotoImageDetail(int index) {
@@ -174,6 +195,15 @@ public class ImageSubmitFragment extends Fragment {
         btnShowImage.startAnimation(rotate);
         layoutImage.setVisibility(View.GONE);
 //        LogUtils.e("isEnabled : " + isEnabled());
+    }
+
+    public void setTitle(String title) {
+        if (TextUtils.isEmpty(title)) {
+            return;
+        }
+        this.title = title;
+        if (tvPickerTitle != null)
+            tvPickerTitle.setText(title);
     }
 
     public boolean isChanged() {
@@ -227,7 +257,9 @@ public class ImageSubmitFragment extends Fragment {
 
     public void clear() {
         imgsList.clear();
-        addAdapter.notifyDataSetChanged();
+        if (isEditable()) {
+            imgsList.add(AddImageAdapter.EMPTY_PATH);
+        }
     }
 
     public int size() {
@@ -317,10 +349,6 @@ public class ImageSubmitFragment extends Fragment {
             setImageCount();
             addAdapter.notifyDataSetChanged();
         }
-    }
-
-    public void setViewVisibility(int visibility) {
-        view.setVisibility(visibility);
     }
 
 }

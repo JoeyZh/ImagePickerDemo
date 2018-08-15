@@ -39,7 +39,8 @@
             android:gravity="center"
             android:onClick="ok"
             android:text="完成"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            style="@style/Widget.AppCompat.Button.Colored" />
     </RelativeLayout>
 
     <RelativeLayout

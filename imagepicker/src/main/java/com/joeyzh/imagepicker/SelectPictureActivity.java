@@ -33,6 +33,7 @@ import com.joey.base.util.Permission;
 import com.joey.base.util.PermissionManager;
 import com.joey.ui.general.BaseActivity;
 import com.joey.ui.util.ImageShapeUtil;
+import com.joeyzh.imagepicker.utils.ImagePickerManager;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -52,7 +53,7 @@ public class SelectPictureActivity extends BaseActivity {
 
     public static final String INTENT_MAX_NUM = "intent_max_num";
     public static final String INTENT_SELECTED_PICTURE = "intent_selected_picture";
-    private static final String FILE_DIR = "select";
+    private static final String FILE_DIR = ImagePickerManager.getFileDir();
 
     private Context context;
     private GridView gridview;
@@ -73,11 +74,13 @@ public class SelectPictureActivity extends BaseActivity {
      */
     private ArrayList<String> selectedPicture = new ArrayList<String>();
     private String cameraPath = null;
+    private boolean selectedFlag = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pictools_activity_select_picture);
+        toolbar.setVisibility(View.GONE);
         MAX_NUM = getIntent().getIntExtra(INTENT_MAX_NUM, 6);
         context = this;
         mContentResolver = getContentResolver();
@@ -85,6 +88,9 @@ public class SelectPictureActivity extends BaseActivity {
         if (!PermissionManager.checkPermisson(this, Permission.STORAGE, Permission.RequestCode.TYPE_STORAGE)) {
             return;
         }
+        selectedFlag = getIntent().getBooleanExtra("selectedFlag", true);
+        if (!selectedFlag)
+            goCamare();
     }
 
     public void select(View v) {
