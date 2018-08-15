@@ -385,7 +385,7 @@ public class SelectPictureActivity extends BaseActivity {
 
     class ViewHolder {
         ImageView iv;
-        Button checkBox;
+        View checkBox;
     }
 
     class FolderAdapter extends BaseAdapter {

@@ -62,7 +62,7 @@ public class ImagePickerFragment extends Fragment {
         return submitFragment;
     }
 
-    public static ImagePickerFragment newInstance(String title,String[] imgsPath) {
+    public static ImagePickerFragment newInstance(String title, String[] imgsPath) {
         ImagePickerFragment submitFragment = new ImagePickerFragment();
         Bundle bundle = new Bundle();
         bundle.putString("title", title);
@@ -301,8 +301,12 @@ public class ImagePickerFragment extends Fragment {
             size = (imgsList.get(0).equals(AddImageAdapter.EMPTY_PATH)) ? size : MAX_NUM;
         }
         String message = String.format("已选择图片%d/%d", size, MAX_NUM);
+        if (size < 0) {
+            message = "无";
+        }
         if (tvImageCount != null)
             tvImageCount.setText(message);
+
     }
 
     public boolean isEditable() {
@@ -325,6 +329,9 @@ public class ImagePickerFragment extends Fragment {
             }
         } else {
             imgsList.remove(AddImageAdapter.EMPTY_PATH);
+            if (imgsList.isEmpty()) {
+                hideImages();
+            }
             tvDeleteNotice.setVisibility(View.GONE);
             tvImageCount.setVisibility(View.INVISIBLE);
             addAdapter.notifyDataSetChanged();
