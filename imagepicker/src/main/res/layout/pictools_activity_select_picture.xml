@@ -88,7 +88,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginBottom="48dp"
             android:horizontalSpacing="3dp"
-            android:numColumns="3"
+            android:numColumns="4"
             android:scrollbars="none"
             android:verticalSpacing="5dp"></GridView>
     </RelativeLayout>

@@ -3,11 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="1dp">
 
     <com.joey.ui.view.RatioImageView
         android:id="@+id/img_photo"
         android:layout_width="match_parent"
+        android:scaleType="centerCrop"
         android:layout_height="match_parent" />
 
 </LinearLayout>

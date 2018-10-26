@@ -1,1 +1,1 @@
-include ':app','imagepicker','base','uilibrary'
+include ':app','imagepicker','uilibrary','base'

@@ -18,6 +18,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.joey.ui.view.ExpandGridView;
+import com.joeyzh.imagepicker.utils.PickerConfig;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,7 +36,8 @@ public class ImagePickerFragment extends Fragment {
     private View layoutImage;
     private ExpandGridView gvImages;
     private AddImageAdapter addAdapter;
-    public static final int MAX_NUM = 9;
+    protected static PickerConfig config;
+    private int MAX_NUM = 9;
     private TextView tvImageCount;
     private TextView tvDeleteNotice;
     private boolean editable = true;
@@ -50,6 +52,7 @@ public class ImagePickerFragment extends Fragment {
     private String title;
 
     public ImagePickerFragment() {
+        config = new PickerConfig();
         setArguments(new Bundle());
     }
 
@@ -79,6 +82,13 @@ public class ImagePickerFragment extends Fragment {
         return submitFragment;
     }
 
+    public ImagePickerFragment initConfig(PickerConfig config) {
+        if (config != null) {
+            this.config = config;
+        }
+        return this;
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -89,6 +99,7 @@ public class ImagePickerFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        MAX_NUM = config.getPickerMaxNum();
         btnShowImage = view.findViewById(R.id.btn_show_image);
         tvPickerTitle = view.findViewById(R.id.tv_picker_title);
         layoutImage = view.findViewById(R.id.layout_images);
@@ -103,6 +114,7 @@ public class ImagePickerFragment extends Fragment {
             }
         });
         gvImages = view.findViewById(R.id.gv_submit_images);
+        gvImages.setNumColumns(config.getPickerNumColumns());
         tvImageCount = view.findViewById(R.id.tv_submit_image_count);
         tvDeleteNotice = view.findViewById(R.id.tv_delete_notice);
         gvImages.setOnItemClickListener(new AdapterView.OnItemClickListener() {
