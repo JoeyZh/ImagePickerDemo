@@ -54,6 +54,8 @@ public class SelectPictureActivity extends BaseActivity {
     public static final String INTENT_MAX_NUM = "intent_max_num";
     public static final String INTENT_SELECTED_PICTURE = "intent_selected_picture";
     private static final String FILE_DIR = ImagePickerManager.getFileDir();
+    private final int REQUEST_CODE_TYPE_STORAGE = 0x100;
+    private final int REQUEST_CODE_TYPE_CAMERA = 0x101;
 
     private Context context;
     private GridView gridview;
@@ -85,7 +87,7 @@ public class SelectPictureActivity extends BaseActivity {
         context = this;
         mContentResolver = getContentResolver();
         initView();
-        if (!PermissionManager.checkPermisson(this, Permission.STORAGE, Permission.RequestCode.TYPE_STORAGE)) {
+        if (!PermissionManager.checkPermisson(this, Permission.STORAGE, REQUEST_CODE_TYPE_STORAGE)) {
             return;
         }
         selectedFlag = getIntent().getBooleanExtra("selectedFlag", true);
@@ -165,7 +167,7 @@ public class SelectPictureActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position == 0) {
-                    if (PermissionManager.checkPermisson(SelectPictureActivity.this, Permission.CAMERA, Permission.RequestCode.TYPE_CAMERA))
+                    if (PermissionManager.checkPermisson(SelectPictureActivity.this, Permission.CAMERA, REQUEST_CODE_TYPE_CAMERA))
                         goCamare();
                 }
             }
@@ -254,7 +256,7 @@ public class SelectPictureActivity extends BaseActivity {
             return;
         }
         // 请求相机权限
-        if (requestCode == Permission.RequestCode.TYPE_CAMERA) {
+        if (requestCode == REQUEST_CODE_TYPE_CAMERA) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 goCamare();
                 return;
@@ -266,7 +268,7 @@ public class SelectPictureActivity extends BaseActivity {
                             .setPositiveButton("打开", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    PermissionManager.checkPermisson(SelectPictureActivity.this, permissions, Permission.RequestCode.TYPE_CAMERA);
+                                    PermissionManager.checkPermisson(SelectPictureActivity.this, permissions, REQUEST_CODE_TYPE_CAMERA);
                                 }
                             })
                             .setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -281,7 +283,7 @@ public class SelectPictureActivity extends BaseActivity {
             warnDialog.show();
             return;
         }
-        if (requestCode == Permission.RequestCode.TYPE_STORAGE) {
+        if (requestCode == REQUEST_CODE_TYPE_STORAGE) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 mContentResolver = getContentResolver();
                 initView();
@@ -294,7 +296,7 @@ public class SelectPictureActivity extends BaseActivity {
                             .setPositiveButton("打开", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    PermissionManager.checkPermisson(SelectPictureActivity.this, permissions, Permission.RequestCode.TYPE_STORAGE);
+                                    PermissionManager.checkPermisson(SelectPictureActivity.this, permissions, REQUEST_CODE_TYPE_STORAGE);
                                 }
                             })
                             .setNegativeButton("取消", new DialogInterface.OnClickListener() {

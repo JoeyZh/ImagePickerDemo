@@ -4,9 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ImagePickerDemo.iml" filepath="$PROJECT_DIR$/ImagePickerDemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/base/base.iml" filepath="$PROJECT_DIR$/base/base.iml" />
       <module fileurl="file://$PROJECT_DIR$/imagepicker/imagepicker.iml" filepath="$PROJECT_DIR$/imagepicker/imagepicker.iml" />
-      <module fileurl="file://$PROJECT_DIR$/uilibrary/uilibrary.iml" filepath="$PROJECT_DIR$/uilibrary/uilibrary.iml" />
     </modules>
   </component>
 </project>
