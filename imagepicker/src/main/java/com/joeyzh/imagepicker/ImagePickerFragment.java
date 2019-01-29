@@ -16,6 +16,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.joey.ui.view.ExpandGridView;
 import com.joeyzh.imagepicker.utils.PickerConfig;
@@ -30,7 +31,7 @@ import java.util.List;
  * Created by Joey on 2017/9/4.
  */
 
-public class ImagePickerFragment extends Fragment {
+public class ImagePickerFragment extends Fragment implements AddImageAdapter.OnItemClickLisener{
 
     private ImageButton btnShowImage;
     private View layoutImage;
@@ -116,7 +117,6 @@ public class ImagePickerFragment extends Fragment {
         gvImages = view.findViewById(R.id.gv_submit_images);
         gvImages.setNumColumns(config.getPickerNumColumns());
         tvImageCount = view.findViewById(R.id.tv_submit_image_count);
-        tvDeleteNotice = view.findViewById(R.id.tv_delete_notice);
         gvImages.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -144,13 +144,14 @@ public class ImagePickerFragment extends Fragment {
                 if (imgsList.get(position).equals(AddImageAdapter.EMPTY_PATH)) {
                     return false;
                 } else {
-                    showDeleteDlg(imgsList.get(position));
                     return true;
                 }
             }
         });
 
         addAdapter = new AddImageAdapter(getActivity(), imgsList);
+        //实例化接口
+        addAdapter.setCallback(this);
         imgsList.clear();
         imgsList.add(AddImageAdapter.EMPTY_PATH);
         String[] imgs = getArguments().getStringArray("images");
@@ -298,7 +299,6 @@ public class ImagePickerFragment extends Fragment {
                                 imgsList.add(MAX_NUM, AddImageAdapter.EMPTY_PATH);
                         }
                         imgsList.remove(deletePath);
-
                         setImageCount();
                         addAdapter.notifyDataSetChanged();
                     }
@@ -370,4 +370,8 @@ public class ImagePickerFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onClick(String path) {
+        showDeleteDlg(path);
+    }
 }

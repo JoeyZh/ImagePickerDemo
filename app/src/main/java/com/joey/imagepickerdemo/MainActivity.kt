@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
                 ImagePickerFragment().
                         initConfig(PickerConfig()
                                 .setPickerMaxNum(42)// 最大选择的图片数
-                                .setPickerNumColumns(3)))//每行有几张图片
+                                .setPickerNumColumns(4)))//每行有几张图片
                 .commit()
         var activityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
         var strbuf = StringBuffer()

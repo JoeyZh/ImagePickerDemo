@@ -57,11 +57,5 @@
             android:paddingRight="10dp"
             android:verticalSpacing="1dp" />
 
-        <TextView
-            android:id="@+id/tv_delete_notice"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="@string/long_clicked_delete" />
     </LinearLayout>
 </LinearLayout>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:drawable="@drawable/ic_pic_cb_checked" android:state_focused="true"></item>
-    <item android:drawable="@drawable/ic_pic_cb_checked" android:state_pressed="true"></item>
-    <item android:drawable="@drawable/ic_pic_cb_checked" android:state_selected="true"></item>
-    <item android:drawable="@drawable/ic_pic_cb_normal"></item>
+    <item android:drawable="@drawable/ic_round_check_fill" android:state_focused="true"></item>
+    <item android:drawable="@drawable/ic_round_check_fill" android:state_pressed="true"></item>
+    <item android:drawable="@drawable/ic_round_check_fill" android:state_selected="true"></item>
+    <item android:drawable="@drawable/ic_round_check"></item>
  
 </selector>
