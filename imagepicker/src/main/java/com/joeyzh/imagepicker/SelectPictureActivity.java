@@ -1,5 +1,6 @@
 package com.joeyzh.imagepicker;
 
+import android.app.Fragment;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -22,6 +23,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
@@ -33,6 +35,7 @@ import com.joey.base.util.Permission;
 import com.joey.base.util.PermissionManager;
 import com.joey.ui.general.BaseActivity;
 import com.joey.ui.util.ImageShapeUtil;
+import com.joey.ui.widget.ToastHelper;
 import com.joeyzh.imagepicker.utils.ImagePickerManager;
 
 import java.io.File;
@@ -67,6 +70,8 @@ public class SelectPictureActivity extends BaseActivity {
     private ArrayList<ImageFloder> mDirPaths = new ArrayList<ImageFloder>();
     private ContentResolver mContentResolver;
     private Button btn_select, btn_ok;
+    private FrameLayout btn_preview;
+    private TextView tvPreview;
     private ListView listview;
     private FolderAdapter folderAdapter;
     private ImageFloder imageAll, currentImageFolder;
@@ -156,10 +161,12 @@ public class SelectPictureActivity extends BaseActivity {
         mDirPaths.add(imageAll);
         btn_ok = (Button) findViewById(R.id.btn_ok);
         btn_select = (Button) findViewById(R.id.btn_select);
+        tvPreview = findViewById(R.id.tv_preview);
+        btn_preview = findViewById(R.id.btn_preview);
         btn_ok.setText("完成0/" + MAX_NUM);
 
         gridview = (GridView) findViewById(R.id.gridview);
-//        gridview.setNumColumns(ImagePickerFragment.config.getPickerNumColumns());
+        gridview.setNumColumns(ImagePickerFragment.config.getPickerNumColumns());
         adapter = new PictureAdapter();
         gridview.setAdapter(adapter);
 
@@ -360,6 +367,37 @@ public class SelectPictureActivity extends BaseActivity {
                 final ImageItem item = currentImageFolder.images.get(position);
                 ImageShapeUtil.setImage(holder.iv, "file://" + item.path);
                 boolean isSelected = selectedPicture.contains(item.path);
+
+                final ViewHolder finalHolder = holder;
+                holder.iv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        if (finalHolder.checkBox.isSelected() && selectedPicture.size() + 1 > MAX_NUM) {
+                            Toast.makeText(context, "最多选择" + MAX_NUM + "张", Toast.LENGTH_SHORT).show();
+                            finalHolder.checkBox.setSelected(false);
+                            return;
+                        }
+                        if (selectedPicture.contains(item.path)) {
+                            selectedPicture.remove(item.path);
+                        } else {
+                            selectedPicture.add(item.path);
+                        }
+                        btn_ok.setEnabled(selectedPicture.size() > 0);
+                        btn_ok.setText("完成" + selectedPicture.size() + "/" + MAX_NUM);
+                        btn_preview.setEnabled(selectedPicture.size() > 0);
+                        tvPreview.setText("预览" + "(" + selectedPicture.size() + ")");
+                        btn_preview.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent intent = new Intent(getApplicationContext(), PhotosDisplayActivity.class);
+                                intent.putExtra("images", selectedPicture);
+                                getApplicationContext().startActivity(intent);
+                            }
+                        });
+                        finalHolder.checkBox.setSelected(selectedPicture.contains(item.path));
+                    }
+                });
                 holder.checkBox.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -375,6 +413,16 @@ public class SelectPictureActivity extends BaseActivity {
                         }
                         btn_ok.setEnabled(selectedPicture.size() > 0);
                         btn_ok.setText("完成" + selectedPicture.size() + "/" + MAX_NUM);
+                        btn_preview.setEnabled(selectedPicture.size() > 0);
+                        tvPreview.setText("预览" + "(" + selectedPicture.size() + ")");
+                        btn_preview.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent intent = new Intent(getApplicationContext(), PhotosDisplayActivity.class);
+                                intent.putExtra("images", selectedPicture);
+                                getApplicationContext().startActivity(intent);
+                            }
+                        });
                         v.setSelected(selectedPicture.contains(item.path));
                     }
                 });
@@ -382,8 +430,6 @@ public class SelectPictureActivity extends BaseActivity {
             }
             return convertView;
         }
-
-
     }
 
     class ViewHolder {
