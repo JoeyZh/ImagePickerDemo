@@ -1,6 +1,5 @@
 package com.joeyzh.imagepicker;
 
-import android.app.Fragment;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -35,7 +34,6 @@ import com.joey.base.util.Permission;
 import com.joey.base.util.PermissionManager;
 import com.joey.ui.general.BaseActivity;
 import com.joey.ui.util.ImageShapeUtil;
-import com.joey.ui.widget.ToastHelper;
 import com.joeyzh.imagepicker.utils.ImagePickerManager;
 
 import java.io.File;

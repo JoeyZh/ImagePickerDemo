@@ -16,7 +16,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.joey.ui.view.ExpandGridView;
 import com.joeyzh.imagepicker.utils.PickerConfig;
@@ -31,7 +30,7 @@ import java.util.List;
  * Created by Joey on 2017/9/4.
  */
 
-public class ImagePickerFragment extends Fragment implements AddImageAdapter.OnItemClickLisener{
+public class ImagePickerFragment extends Fragment implements AddImageAdapter.OnItemClickLisener {
 
     private ImageButton btnShowImage;
     private View layoutImage;

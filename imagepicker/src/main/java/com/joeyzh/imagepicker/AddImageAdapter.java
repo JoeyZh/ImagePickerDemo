@@ -12,7 +12,7 @@ import com.joey.ui.util.ImageShapeUtil;
 import java.util.List;
 
 
-public class AddImageAdapter extends BaseAdapter{
+public class AddImageAdapter extends BaseAdapter {
 
 
     private List<String> data;
@@ -68,7 +68,7 @@ public class AddImageAdapter extends BaseAdapter{
             if (uri.getScheme() == null || uri.getScheme().isEmpty()) {
                 path = "file://" + path;
             }
-            ImageShapeUtil.setImage(holder.img,path);
+            ImageShapeUtil.setImage(holder.img, path);
             holder.delImgView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -84,12 +84,12 @@ public class AddImageAdapter extends BaseAdapter{
         private ImageView delImgView;
 
         public ViewHolder(View convertView) {
-            img =  convertView.findViewById(R.id.img_photo);
+            img = convertView.findViewById(R.id.img_photo);
             delImgView = convertView.findViewById(R.id.img_del);
         }
     }
 
-    public interface OnItemClickLisener{
+    public interface OnItemClickLisener {
         void onClick(String path);
     }
 }
