@@ -8,7 +8,17 @@ public class PickerConfig {
 
     private String fileName = "Joeyzh";
     private int pickerMaxNum = 9;
-    private int pickerNumColumns = 3;
+    private int pickerNumColumns = 4;
+    private int selectPickerNumColumns = 3;
+
+    public int getSelectPickerNumColumns() {
+        return selectPickerNumColumns;
+    }
+
+    public PickerConfig setSelectPickerNumColumns(int selectPickerNumColumns) {
+        this.selectPickerNumColumns = selectPickerNumColumns;
+        return this;
+    }
 
     public String getFileName() {
         return fileName;

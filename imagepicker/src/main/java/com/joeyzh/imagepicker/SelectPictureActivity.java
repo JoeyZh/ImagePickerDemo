@@ -164,7 +164,7 @@ public class SelectPictureActivity extends BaseActivity {
         btn_ok.setText("完成0/" + MAX_NUM);
 
         gridview = (GridView) findViewById(R.id.gridview);
-        gridview.setNumColumns(ImagePickerFragment.config.getPickerNumColumns());
+        gridview.setNumColumns(ImagePickerFragment.config.getSelectPickerNumColumns());
         adapter = new PictureAdapter();
         gridview.setAdapter(adapter);
 
