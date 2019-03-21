@@ -20,6 +20,8 @@ import android.widget.TextView;
 import com.joey.ui.view.ExpandGridView;
 import com.joeyzh.imagepicker.utils.PickerConfig;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -257,6 +259,10 @@ public class ImagePickerFragment extends Fragment implements AddImageAdapter.OnI
     public void addPathList(int index, Collection<String> pathArray) {
         imgsList.addAll(index, pathArray);
         setImageCount();
+    }
+
+    public TextView getTitleView() {
+        return tvPickerTitle;
     }
 
     public void remove(String path) {

@@ -77,20 +77,10 @@ public class AddImageAdapter extends BaseAdapter {
             public void onClick(View view) {
                 callback.onClick(finalPath);
             }
-<<<<<<< HEAD
-            ImageShapeUtil.setImage(holder.img, path);
-            holder.delImgView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    callback.onClick(finalPath);
-                }
-            });
-=======
         });
         if (ImageLoaderUtil.isBase64Img(finalPath)) {
             ImageLoaderUtil.loadBase64(context, finalPath, holder.img);
             return;
->>>>>>> 增加显示base64图片
         }
         Uri uri = Uri.parse(path);
         if (uri.getScheme() == null || uri.getScheme().isEmpty()) {

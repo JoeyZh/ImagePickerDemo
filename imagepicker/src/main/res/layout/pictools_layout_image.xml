@@ -18,7 +18,8 @@
             android:layout_height="match_parent"
             android:gravity="left|center_vertical"
             android:padding="5dp"
-            android:text="附件：" />
+            android:text="附件："
+            android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
 
         <TextView
             android:id="@+id/tv_submit_image_count"
