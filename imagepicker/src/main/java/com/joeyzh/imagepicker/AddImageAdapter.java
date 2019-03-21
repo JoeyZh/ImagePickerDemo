@@ -8,6 +8,7 @@ import android.widget.ImageView;
 
 import com.joey.ui.adapter.BaseAdapter;
 import com.joey.ui.util.ImageShapeUtil;
+import com.joeyzh.imagepicker.utils.ImageLoaderUtil;
 
 import java.util.List;
 
@@ -58,16 +59,25 @@ public class AddImageAdapter extends BaseAdapter {
         }
 
         String path = getItem(position);
+        setImageView(path, holder);
+        return convertView;
+    }
+
+    private void setImageView(String path, ViewHolder holder) {
         if (EMPTY_PATH.equals(path)) {
             setImageView(holder.img, R.drawable.ic_addpic);
             holder.delImgView.setVisibility(View.INVISIBLE);
-        } else {
-            holder.delImgView.setVisibility(View.VISIBLE);
-            final String finalPath = path;
-            Uri uri = Uri.parse(path);
-            if (uri.getScheme() == null || uri.getScheme().isEmpty()) {
-                path = "file://" + path;
+            return;
+        }
+
+        holder.delImgView.setVisibility(View.VISIBLE);
+        final String finalPath = path;
+        holder.delImgView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                callback.onClick(finalPath);
             }
+<<<<<<< HEAD
             ImageShapeUtil.setImage(holder.img, path);
             holder.delImgView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -75,8 +85,20 @@ public class AddImageAdapter extends BaseAdapter {
                     callback.onClick(finalPath);
                 }
             });
+=======
+        });
+        if (ImageLoaderUtil.isBase64Img(finalPath)) {
+            ImageLoaderUtil.loadBase64(context, finalPath, holder.img);
+            return;
+>>>>>>> 增加显示base64图片
         }
-        return convertView;
+        Uri uri = Uri.parse(path);
+        if (uri.getScheme() == null || uri.getScheme().isEmpty()) {
+            path = "file://" + path;
+        }
+        ImageShapeUtil.setImage(holder.img, path);
+
+
     }
 
     private class ViewHolder {
