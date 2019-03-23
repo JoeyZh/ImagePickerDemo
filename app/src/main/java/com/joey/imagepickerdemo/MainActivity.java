@@ -3,12 +3,18 @@ package com.joey.imagepickerdemo;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.joeyzh.imagepicker.ImagePickerFragment;
+import com.joeyzh.imagepicker.utils.ImagePickerManager;
 import com.joeyzh.imagepicker.utils.PickerConfig;
+
+import java.io.File;
+import java.util.ArrayList;
 
 /**
  * Created by Joey on 2019/3/21.
@@ -18,16 +24,25 @@ import com.joeyzh.imagepicker.utils.PickerConfig;
 
 public class MainActivity extends AppCompatActivity {
 
+    ImagePickerFragment pickerFragment;
+    String path = "/Pictures/Joeyzh/IMG_20190323_094605.jpg";
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        path = Environment.getExternalStorageDirectory().getPath() + path;
+        File file = new File(path);
+
+        String base64Str = Base64Helper.formatBase64Str(path);
+        Log.i("MainActivity", base64Str);
+        pickerFragment = ImagePickerFragment.newInstance(new String[]{base64Str}).
+                initConfig(new PickerConfig()
+                        .setPickerMaxNum(42)
+                        .setPickerNumColumns(4));
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fr_content_image,
-                new ImagePickerFragment().
-                        initConfig(new PickerConfig()
-                                .setPickerMaxNum(42)// 最大选择的图片数
-                                .setPickerNumColumns(4)))//每行有几张图片
+                pickerFragment)
                 .commit();
         ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         StringBuffer strbuf = new StringBuffer();
@@ -36,4 +51,6 @@ public class MainActivity extends AppCompatActivity {
         TextView textView = findViewById(R.id.tv_title);
         textView.setText(strbuf.toString());
     }
+
+
 }
