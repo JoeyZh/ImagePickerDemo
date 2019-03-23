@@ -17,7 +17,6 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.joey.ui.view.ExpandGridView;
 import com.joeyzh.imagepicker.utils.PickerConfig;
 
 import org.w3c.dom.Text;

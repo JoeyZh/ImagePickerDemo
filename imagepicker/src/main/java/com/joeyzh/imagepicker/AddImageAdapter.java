@@ -2,12 +2,13 @@ package com.joeyzh.imagepicker;
 
 import android.content.Context;
 import android.net.Uri;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.joey.ui.adapter.BaseAdapter;
-import com.joey.ui.util.ImageShapeUtil;
 import com.joeyzh.imagepicker.utils.ImageLoaderUtil;
 
 import java.util.List;
@@ -86,8 +87,43 @@ public class AddImageAdapter extends BaseAdapter {
         if (uri.getScheme() == null || uri.getScheme().isEmpty()) {
             path = "file://" + path;
         }
-        ImageShapeUtil.setImage(holder.img, path);
+        ImageLoaderUtil.setImage(holder.img, path);
 
+    }
+
+    public void setText(TextView textView, int res) {
+        if (res <= 0) {
+            textView.setText("");
+            return;
+        }
+        textView.setVisibility(View.VISIBLE);
+        textView.setText(res);
+    }
+
+
+    public void setText(TextView textView, CharSequence text) {
+        if (TextUtils.isEmpty(text) || "null".equalsIgnoreCase(text.toString())) {
+            textView.setText("");
+            return;
+        }
+        textView.setVisibility(View.VISIBLE);
+        textView.setText(text);
+    }
+
+    public void setImageView(ImageView imageView, int res) {
+        if (res <= 0) {
+            return;
+        }
+        imageView.setVisibility(View.VISIBLE);
+        imageView.setImageResource(res);
+    }
+
+    public void setImageView(final ImageView imageView, final String url) {
+        if (TextUtils.isEmpty(url)) {
+            return;
+        }
+        imageView.setVisibility(View.VISIBLE);
+        ImageLoaderUtil.setImage(imageView, url);
 
     }
 

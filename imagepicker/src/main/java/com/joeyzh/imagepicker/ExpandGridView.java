@@ -5,29 +5,30 @@ import android.util.AttributeSet;
 import android.widget.GridView;
 
 /**
+ * create by Joey
  * 自动适配的GridView用于嵌套ScrollView或者ListView
  */
 
 public class ExpandGridView extends GridView {
 
-    public ExpandGridView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-    }
+	public ExpandGridView(Context context, AttributeSet attrs) {
+		super(context, attrs);
+	}
 
-    public ExpandGridView(Context context) {
-        super(context);
-    }
+	public ExpandGridView(Context context) {
+		super(context);
+	}
 
-    public ExpandGridView(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-    }
+	public ExpandGridView(Context context, AttributeSet attrs, int defStyle) {
+		super(context, attrs, defStyle);
+	}
 
-    @Override
-    public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int expandSpec = MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2,
-                MeasureSpec.AT_MOST);
+	@Override
+	public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+		int expandSpec = MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2,
+				MeasureSpec.AT_MOST);
 
-        super.onMeasure(widthMeasureSpec, expandSpec);
-    }
+		super.onMeasure(widthMeasureSpec, expandSpec);
+	}
 
 }

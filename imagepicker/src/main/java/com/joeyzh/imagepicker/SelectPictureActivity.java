@@ -14,9 +14,11 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
@@ -32,8 +34,7 @@ import android.widget.Toast;
 
 import com.joey.base.util.Permission;
 import com.joey.base.util.PermissionManager;
-import com.joey.ui.general.BaseActivity;
-import com.joey.ui.util.ImageShapeUtil;
+import com.joeyzh.imagepicker.utils.ImageLoaderUtil;
 import com.joeyzh.imagepicker.utils.ImagePickerManager;
 
 import java.io.File;
@@ -44,7 +45,7 @@ import java.util.HashMap;
 import java.util.List;
 
 
-public class SelectPictureActivity extends BaseActivity {
+public class SelectPictureActivity extends AppCompatActivity {
 
     /**
      * 最多选择图片的个数
@@ -84,8 +85,8 @@ public class SelectPictureActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.pictools_activity_select_picture);
-        toolbar.setVisibility(View.GONE);
         MAX_NUM = getIntent().getIntExtra(INTENT_MAX_NUM, 6);
         context = this;
         mContentResolver = getContentResolver();
@@ -172,8 +173,9 @@ public class SelectPictureActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position == 0) {
-                    if (PermissionManager.checkPermisson(SelectPictureActivity.this, Permission.CAMERA, REQUEST_CODE_TYPE_CAMERA))
+                    if (PermissionManager.checkPermisson(SelectPictureActivity.this, Permission.CAMERA, REQUEST_CODE_TYPE_CAMERA)) {
                         goCamare();
+                    }
                 }
             }
         });
@@ -322,11 +324,6 @@ public class SelectPictureActivity extends BaseActivity {
         onBackPressed();
     }
 
-    @Override
-    public void onBindView() {
-
-    }
-
     class PictureAdapter extends BaseAdapter {
         @Override
         public int getCount() {
@@ -363,7 +360,7 @@ public class SelectPictureActivity extends BaseActivity {
                 position = position - 1;
                 holder.checkBox.setVisibility(View.VISIBLE);
                 final ImageItem item = currentImageFolder.images.get(position);
-                ImageShapeUtil.setImage(holder.iv, "file://" + item.path);
+                ImageLoaderUtil.setImage(holder.iv, "file://" + item.path);
                 boolean isSelected = selectedPicture.contains(item.path);
 
                 final ViewHolder finalHolder = holder;
@@ -467,7 +464,7 @@ public class SelectPictureActivity extends BaseActivity {
                 holder = (FolderViewHolder) convertView.getTag();
             }
             ImageFloder item = mDirPaths.get(position);
-            ImageShapeUtil.setImage(holder.id_dir_item_image, "file://" + item.getFirstImagePath());
+            ImageLoaderUtil.setImage(holder.id_dir_item_image, "file://" + item.getFirstImagePath());
             holder.id_dir_item_count.setText(item.images.size() + "张");
             holder.id_dir_item_name.setText(item.getName());
             holder.choose.setVisibility(currentImageFolder == item ? View.VISIBLE : View.GONE);

@@ -6,14 +6,11 @@ import android.text.TextUtils;
 import android.util.Base64;
 import android.widget.ImageView;
 
-import com.bumptech.glide.BitmapTypeRequest;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.target.Target;
-
-import java.util.concurrent.ExecutionException;
+import com.joeyzh.imagepicker.R;
 
 /**
  * Created by Joey on 2019/3/21.
@@ -44,13 +41,29 @@ public class ImageLoaderUtil {
         byte[] decode = Base64.decode(encoded, Base64.DEFAULT);
         try {
             Glide.with(context).load(decode).asBitmap()
-                    .placeholder(com.joey.ui.R.drawable.ic_load_image_fail)
-                    .error(com.joey.ui.R.drawable.ic_load_image_fail)
+                    .placeholder(R.drawable.ic_load_image_fail)
+                    .error(R.drawable.ic_load_image_fail)
                     .dontAnimate()
                     .into(target);
         } catch (Exception e) {
 
         }
+    }
+
+    /**
+     * 显示正常照片
+     */
+    public static void setImage(final ImageView imageView, String url) {
+        if (TextUtils.isEmpty(url)) {
+            return;
+        }
+        Glide.with(imageView.getContext())
+                .load(url) //加载url
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .dontAnimate()//取消动画
+                .placeholder(R.drawable.ic_load_image_fail) //占位图设置
+                .error(R.drawable.ic_load_image_fail)//显示异常图
+                .into(imageView);
     }
 
 }
