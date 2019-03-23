@@ -12,6 +12,8 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.joeyzh.imagepicker.R;
 
+import java.util.regex.Pattern;
+
 /**
  * Created by Joey on 2019/3/21.
  *
@@ -39,6 +41,9 @@ public class ImageLoaderUtil {
         };
         encoded = encoded.split("base64,")[1];
         try {
+            if (!isBase64(encoded)) {
+                throw new Exception("非法base64格式");
+            }
             byte[] decode = Base64.decode(encoded, Base64.DEFAULT);
             Glide.with(context).load(decode).asBitmap()
                     .placeholder(R.drawable.ic_load_image_fail)
@@ -69,5 +74,8 @@ public class ImageLoaderUtil {
             e.printStackTrace();
         }
     }
-
+    private static boolean isBase64(String str) {
+        String base64Pattern = "^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)$";
+        return Pattern.matches(base64Pattern, str);
+    }
 }
