@@ -27,6 +27,15 @@ public class AddImageAdapter extends BaseAdapter {
     }
 
     public static final String EMPTY_PATH = "path://add_image";
+    private boolean editable;
+
+    public boolean isEditable() {
+        return editable;
+    }
+
+    public void setEditable(boolean editable) {
+        this.editable = editable;
+    }
 
     public AddImageAdapter(Context context, List<String> dataList) {
         this.data = dataList;
@@ -70,8 +79,9 @@ public class AddImageAdapter extends BaseAdapter {
             holder.delImgView.setVisibility(View.INVISIBLE);
             return;
         }
-
-        holder.delImgView.setVisibility(View.VISIBLE);
+        if (isEditable()) {
+            holder.delImgView.setVisibility(View.VISIBLE);
+        }
         final String finalPath = path;
         holder.delImgView.setOnClickListener(new View.OnClickListener() {
             @Override

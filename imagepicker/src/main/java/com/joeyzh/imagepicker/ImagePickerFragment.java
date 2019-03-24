@@ -40,7 +40,6 @@ public class ImagePickerFragment extends Fragment implements AddImageAdapter.OnI
     protected static PickerConfig config;
     private int MAX_NUM = 9;
     private TextView tvImageCount;
-    private TextView tvDeleteNotice;
     private boolean editable = true;
     private TextView tvPickerTitle;
     private View view;
@@ -331,11 +330,8 @@ public class ImagePickerFragment extends Fragment implements AddImageAdapter.OnI
 
     public void setEditable(boolean editable) {
         this.editable = editable;
-        if (tvDeleteNotice == null) {
-            return;
-        }
+        addAdapter.setEditable(editable);
         if (editable) {
-            tvDeleteNotice.setVisibility(View.VISIBLE);
             tvImageCount.setVisibility(View.VISIBLE);
             if (!imgsList.contains(AddImageAdapter.EMPTY_PATH)) {
                 if (imgsList.size() < MAX_NUM)
@@ -348,7 +344,6 @@ public class ImagePickerFragment extends Fragment implements AddImageAdapter.OnI
             if (imgsList.isEmpty()) {
                 hideImages();
             }
-            tvDeleteNotice.setVisibility(View.GONE);
             tvImageCount.setVisibility(View.INVISIBLE);
             addAdapter.notifyDataSetChanged();
         }

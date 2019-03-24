@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         path = Environment.getExternalStorageDirectory().getPath() + path;
         File file = new File(path);
 
-        String base64Str = Base64Helper.formatBase64Str(path);
+        String base64Str = Base64Helper.formatBase64Str(path,true);
         Log.i("MainActivity", base64Str);
         pickerFragment = ImagePickerFragment.newInstance(new String[]{base64Str}).
                 initConfig(new PickerConfig()
