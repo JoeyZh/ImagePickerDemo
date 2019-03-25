@@ -32,15 +32,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         path = Environment.getExternalStorageDirectory().getPath() + path;
+        PickerConfig config = new PickerConfig()
+                .setPickerMaxNum(42)
+                .setPickerNumColumns(4);
         File file = new File(path);
-
-        String base64Str = Base64Helper.formatBase64Str(path,true);
-        Log.i("MainActivity", base64Str);
-        pickerFragment = ImagePickerFragment.newInstance(new String[]{base64Str}).
-                initConfig(new PickerConfig()
-                        .setPickerMaxNum(42)
-                        .setPickerNumColumns(4));
-
+        if (file.exists()) {
+            String base64Str = Base64Helper.formatBase64Str(path, true);
+            Log.i("MainActivity", base64Str);
+            pickerFragment = ImagePickerFragment.newInstance(new String[]{base64Str}).initConfig(config);
+        }
+        pickerFragment = new ImagePickerFragment().initConfig(config);
         getSupportFragmentManager().beginTransaction().replace(R.id.fr_content_image,
                 pickerFragment)
                 .commit();
