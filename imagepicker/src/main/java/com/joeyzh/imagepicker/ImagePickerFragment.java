@@ -330,6 +330,9 @@ public class ImagePickerFragment extends Fragment implements AddImageAdapter.OnI
 
     public void setEditable(boolean editable) {
         this.editable = editable;
+        if (addAdapter == null) {
+            return;
+        }
         addAdapter.setEditable(editable);
         if (editable) {
             tvImageCount.setVisibility(View.VISIBLE);
