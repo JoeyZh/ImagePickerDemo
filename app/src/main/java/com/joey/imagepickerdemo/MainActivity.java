@@ -25,7 +25,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     ImagePickerFragment pickerFragment;
-    String path = "/Pictures/Joeyzh/IMG_20190323_094605.jpg";
+    String path = "/DCIM/Camera/IMG_20190312_160924.jpg";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,8 +40,9 @@ public class MainActivity extends AppCompatActivity {
             String base64Str = Base64Helper.formatBase64Str(path, true);
             Log.i("MainActivity", base64Str);
             pickerFragment = ImagePickerFragment.newInstance(new String[]{base64Str}).initConfig(config);
+        } else {
+            pickerFragment = new ImagePickerFragment().initConfig(config);
         }
-        pickerFragment = new ImagePickerFragment().initConfig(config);
         getSupportFragmentManager().beginTransaction().replace(R.id.fr_content_image,
                 pickerFragment)
                 .commit();

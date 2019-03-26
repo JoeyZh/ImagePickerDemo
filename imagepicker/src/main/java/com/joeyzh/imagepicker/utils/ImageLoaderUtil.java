@@ -33,7 +33,7 @@ public class ImageLoaderUtil {
     }
 
     public static void loadBase64(final Context context, String encoded, final ImageView imageView) {
-        SimpleTarget<Bitmap> target = new SimpleTarget<Bitmap>() {
+        final SimpleTarget<Bitmap> target = new SimpleTarget<Bitmap>() {
             @Override
             public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
                 imageView.setImageBitmap(resource);
@@ -54,7 +54,7 @@ public class ImageLoaderUtil {
     }
 
     /**
-     * 显示正常照片
+     * 显示正常照片include
      */
     public static void setImage(final ImageView imageView, String url) {
         if (TextUtils.isEmpty(url)) {

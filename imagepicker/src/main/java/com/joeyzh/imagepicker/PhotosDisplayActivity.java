@@ -88,6 +88,8 @@ public class PhotosDisplayActivity extends AppCompatActivity {
             } else {
                 if (mapList.get(position).startsWith("http")) {
                     ImageLoaderUtil.setImage(currentimage, mapList.get(position));
+                } else if (ImageLoaderUtil.isBase64Img(mapList.get(position))) {
+                    ImageLoaderUtil.loadBase64(currentimage.getContext(), mapList.get(position), currentimage);
                 } else {
 //                    currentimage.setImageBitmap(BitmapFactory.decodeFile(mapList
 //                            .get(position).toString()));
