@@ -28,7 +28,7 @@ public class Base64Helper {
         bm.compress(format, 100, baos);
 
         byte[] b = baos.toByteArray();
-        return Base64.encodeToString(b, Base64.DEFAULT);
+        return Base64.encodeToString(b, Base64.NO_WRAP);
     }
 
 
@@ -51,7 +51,7 @@ public class Base64Helper {
     }
 
     public static Bitmap base64ToBitmap(String base64Str) {
-        byte[] buffer = Base64.decode(base64Str, Base64.DEFAULT);
+        byte[] buffer = Base64.decode(base64Str, Base64.NO_WRAP);
         Bitmap bm = BitmapFactory.decodeByteArray(buffer, 0, buffer.length);
         return bm;
     }

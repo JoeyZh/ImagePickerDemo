@@ -41,7 +41,7 @@ public class ImageLoaderUtil {
         };
         encoded = encoded.split(";base64,")[1];
         try {
-            byte[] decode = Base64.decode(encoded, Base64.DEFAULT);
+            byte[] decode = Base64.decode(encoded, Base64.NO_WRAP);
             Glide.with(context).load(decode).asBitmap()
                     .placeholder(R.drawable.ic_load_image_fail)
                     .error(R.drawable.ic_load_image_fail)
