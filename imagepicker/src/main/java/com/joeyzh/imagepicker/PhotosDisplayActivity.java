@@ -4,9 +4,11 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -20,7 +22,7 @@ public class PhotosDisplayActivity extends AppCompatActivity {
     private final String TAG = getClass().toString();
 
     private ViewPager viewPager;
-    private ArrayList<String> mapList;
+    protected static ArrayList<String> mapList;
     private int displayIndex;
     private int group;
     private ViewPager.OnPageChangeListener pageChangeListener = new ViewPager.OnPageChangeListener() {
@@ -48,11 +50,26 @@ public class PhotosDisplayActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pictools_activity_photo_display);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setHomeButtonEnabled(true);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
         initViews();
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish(); // back button
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     protected void initViews() {
-        mapList = (ArrayList<String>) getIntent().getStringArrayListExtra("images");
+//        mapList = (ArrayList<String>) getIntent().getStringArrayListExtra("images");
         displayIndex = getIntent().getIntExtra("index", 0);
         setTitle(String.format("%d/%d", (displayIndex + 1), mapList.size()));
         viewPager = (ViewPager) findViewById(R.id.album_photos_viewpager);
@@ -113,4 +130,9 @@ public class PhotosDisplayActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mapList = null;
+    }
 }

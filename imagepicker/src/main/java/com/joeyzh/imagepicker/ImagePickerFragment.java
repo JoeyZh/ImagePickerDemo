@@ -187,7 +187,8 @@ public class ImagePickerFragment extends Fragment implements AddImageAdapter.OnI
         }
         Intent intent = new Intent(getActivity(), PhotosDisplayActivity.class);
         intent.putExtra("index", index);
-        intent.putExtra("images", imgs);
+//     这段代码是因为传递base64大数据时，intent无法序列化传递    intent.putExtra("images", imgs);
+        PhotosDisplayActivity.mapList = imgs;
         getActivity().startActivity(intent);
     }
 

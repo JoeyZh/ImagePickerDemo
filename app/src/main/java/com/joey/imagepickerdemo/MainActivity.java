@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         Log.i("MainActivity 1 ", base64Str1.length() + "");
         String base64Str2 = readAssetsTxt(this, "base64_2");
         Log.i("MainActivity 2", base64Str2.length() + "");
-        pickerFragment = ImagePickerFragment.newInstance(new String[]{base64Str, base64Str1, base64Str2}).initConfig(config);
+        pickerFragment = ImagePickerFragment.newInstance(new String[]{base64Str1, base64Str1, base64Str1}).initConfig(config);
 //        } else {
 //            pickerFragment = new ImagePickerFragment().initConfig(config);
 //        }
