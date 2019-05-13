@@ -39,21 +39,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         path = Environment.getExternalStorageDirectory().getPath() + path;
         PickerConfig config = new PickerConfig()
-                .setPickerMaxNum(42)
-                .setPickerNumColumns(4);
-        File file = new File(path);
-        String base64Str = "";
-        if (file.exists()) {
-            base64Str = Base64Helper.formatBase64Str(path, true);
-            Log.i("MainActivity", base64Str.length() + "");
-        }
-        String base64Str1 = readAssetsTxt(this, "base64_3");
-        Log.i("MainActivity 1 ", base64Str1.length() + "");
-        String base64Str2 = readAssetsTxt(this, "base64_2");
-        Log.i("MainActivity 2", base64Str2.length() + "");
-        pickerFragment = ImagePickerFragment.newInstance(new String[]{base64Str1, base64Str1, base64Str1}).initConfig(config);
+                .setPickerMaxNum(3)
+                .setPickerNumColumns(3);
+//        File file = new File(path);
+//        String base64Str = "";
+//        if (file.exists()) {
+//            base64Str = Base64Helper.formatBase64Str(path, true);
+//            Log.i("MainActivity", base64Str.length() + "");
+//        }
+//        String base64Str1 = readAssetsTxt(this, "base64_3");
+//        Log.i("MainActivity 1 ", base64Str1.length() + "");
+//        String base64Str2 = readAssetsTxt(this, "base64_2");
+//        Log.i("MainActivity 2", base64Str2.length() + "");
+//        pickerFragment = ImagePickerFragment.newInstance(new String[]{base64Str1, base64Str1, base64Str1}).initConfig(config);
 //        } else {
-//            pickerFragment = new ImagePickerFragment().initConfig(config);
+            pickerFragment = new ImagePickerFragment().initConfig(config);
 //        }
         getSupportFragmentManager().beginTransaction().replace(R.id.fr_content_image,
                 pickerFragment)

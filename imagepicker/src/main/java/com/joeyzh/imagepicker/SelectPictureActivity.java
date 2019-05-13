@@ -367,8 +367,8 @@ public class SelectPictureActivity extends AppCompatActivity {
                 holder.iv.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
-                        if (finalHolder.checkBox.isSelected() && selectedPicture.size() + 1 > MAX_NUM) {
+                        // image选择的判断条件和checkbox有所区别，参看第一个条件
+                        if (!finalHolder.checkBox.isSelected() && selectedPicture.size() + 1 > MAX_NUM) {
                             Toast.makeText(context, "最多选择" + MAX_NUM + "张", Toast.LENGTH_SHORT).show();
                             finalHolder.checkBox.setSelected(false);
                             return;
@@ -425,6 +425,7 @@ public class SelectPictureActivity extends AppCompatActivity {
             }
             return convertView;
         }
+
     }
 
     class ViewHolder {
